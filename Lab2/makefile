@@ -16,12 +16,12 @@ include /home/ecegrid/a/ece337/Course_Prod/course_make_vars
 # (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-COMPONENT_FILES	:= 
+COMPONENT_FILES	:= adder_nbit.sv adder_1bit.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-TOP_LEVEL_FILE	:= 
+TOP_LEVEL_FILE	:= adder_8bit.sv 
 
 # Specify the filepath of the test bench you want to use (ie. tb_top_level.sv)
 # (do not include the source folder in the name)
@@ -349,7 +349,24 @@ report_area >> reports/$(MOD_NAME).rep
 report_power -hier >> reports/$(MOD_NAME).rep
 
 # Step 5: Output final VHDL and Verilog files
-write_file -format verilog -hierarchy -output "mapped/$(MOD_NAME).v"
+#write_file -format verilog -hierarchy -output "mapped/$(MOD_NAME).v"
+
+# Second Compilation Run. Repeat Steps 2-5
+# Step 2: Put the max delay constrains in the second pass only.
+#set_max_delay 6.4 -from "b" -to "sum" 
+
+# Step 3: Compile the design
+#set_structure true -design $(MOD_NAME) -boolean true -boolean_effort medium
+#compile -map_effort high -boundary_optimization
+
+# Step 4: Output reports
+#report_timing -path full -delay max -max_paths 1 -nworst 1 > reports/$(MOD_NAME)_1.rep
+#report_area >> reports/$(MOD_NAME)_1.rep
+#report_power -hier >> reports/$(MOD_NAME)_1.rep
+
+# Step 5: Output final Verilog and Verilog files
+#write_file -format verilog -hierarchy -output "mapped/$(MOD_NAME)_1.v"
+
 echo "\nScript Done\n"
 echo "\nChecking Design\n"
 check_design
