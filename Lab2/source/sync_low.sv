@@ -21,7 +21,7 @@ begin
 	if(1'b0 == n_rst)
 	begin
 		Q1 <= 1'b0;
-		sync_out <= Q1;
+		sync_out <= 1'b0;
 	end
 	else
 	begin
@@ -30,4 +30,4 @@ begin
 	end
 end
 endmodule
-		
+		 

@@ -19,6 +19,13 @@ wire temp1;
 wire temp2;
 wire temp3;
 wire temp4;
+
+always @ (a)
+begin
+	assert((a == 1'b1) || (a == 1'b0))
+	else $error("Input 'a' of componenet is not a digital logic value");
+end
+
 xor X1 (temp1, a, b);
 xor X2 (sum, temp1, carry_in);
 and A1 (temp2, !carry_in, a, b);

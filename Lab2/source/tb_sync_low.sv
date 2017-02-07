@@ -1,10 +1,10 @@
 // $Id: $
-// File name:   tb_sync.sv
+// File name:   tb_sync_low.sv
 // Created:     1/20/2017
 // Author:      Parth Patel
 // Lab Section: 337-01
 // Version:     1.0  Initial Design Entry
-// Description: Exhaustive TestBench for synchronizer.
+// Description: Testbench for synch low.
 
 // 0.5um D-FlipFlop Timing Data Estimates:
 // Data Propagation delay (clk->Q): 670ps
@@ -13,7 +13,7 @@
 
 `timescale 1ns / 10ps
 
-module tb_sync();
+module tb_sync_low();
 
 	// Define local parameters used by the test bench
 	localparam	CLK_PERIOD		= 1;
@@ -44,7 +44,7 @@ module tb_sync();
 	end
 	
 	// DUT Port map
-	sync DUT(.clk(tb_clk), .n_rst(tb_n_rst), .async_in(tb_async_in), .sync_out(tb_sync_out));
+	sync_low DUT(.clk(tb_clk), .n_rst(tb_n_rst), .async_in(tb_async_in), .sync_out(tb_sync_out));
 	
 	// Test bench main process
 	initial
@@ -152,7 +152,7 @@ module tb_sync();
 		begin // Test case failed
 			$error("Incorrect synchronizer output for %s test case", tb_test_case);
 		end
-		
+		 
 		// Test Case 5: Steady Stream of Unkown/Metastable inputs to showcase random decay behavior
 		@(negedge tb_clk); 
 		tb_test_num = tb_test_num + 1;
@@ -175,6 +175,44 @@ module tb_sync();
 		end
 		
 		// STUDENT: Add your tests after this point
+
+		// Test Case 6: Setup Violation with Input as a '1'
+		@(negedge tb_clk); 
+		tb_test_num = tb_test_num + 1;
+		tb_test_case = "Setup Violation with Input as a '1'";
+		@(posedge tb_clk);
+		#(CLK_PERIOD - (FF_SETUP_TIME * 0.5)); // Make sure the value get's updated during the setup time -> setup violation
+		tb_async_in = 1'b1;
+		@(posedge tb_clk); 
+		@(posedge tb_clk); 
+		#(CHECK_DELAY);
+		if((1'b1 == tb_sync_out) || (1'b0 == tb_sync_out))
+		begin // Test case passed
+			$info("Correct synchronizer output for %s test case", tb_test_case);
+		end
+		else
+		begin // Test case failed
+			$error("Incorrect synchronizer output for %s test case", tb_test_case);
+		end
+		
+		// Test Case 7: Hold Violation with Input as a '0'
+		@(negedge tb_clk); 
+		tb_test_num = tb_test_num + 1;
+		tb_test_case = "Hold Violation with Input as a '0'";
+		@(posedge tb_clk);
+		#(FF_HOLD_TIME * 0.5); // Make sure the value get's updated during the hold time -> setup violation
+		tb_async_in = 1'b0;
+		@(posedge tb_clk); 
+		@(posedge tb_clk); 
+		#(CHECK_DELAY);
+		if((1'b1 == tb_sync_out) || (1'b0 == tb_sync_out))
+		begin // Test case passed
+			$info("Correct synchronizer output for %s test case", tb_test_case);
+		end
+		else
+		begin // Test case failed
+			$error("Incorrect synchronizer output for %s test case", tb_test_case);
+		end
 		
 	end
 endmodule

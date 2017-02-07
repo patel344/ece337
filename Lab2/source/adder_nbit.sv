@@ -21,6 +21,12 @@ module adder_nbit
 wire [BIT_WIDTH:0] carrys;
 genvar i;
 
+always @ (carry_in)
+begin
+	assert((carry_in == 1'b1) || (carry_in == 1'b0))
+	else $error("Input 'carry_in' of componenet is not a digital logic value");
+end
+
 assign carrys[0] = carry_in;
 generate
 	for(i=0; i < BIT_WIDTH; i++)
