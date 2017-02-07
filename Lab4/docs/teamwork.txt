@@ -1,0 +1,25 @@
+1. 
+	Parth (Me): 
+		Category 1: 5
+		Category 2: 5
+		Category 3: 5
+		Category 4: 4
+
+	Simon: 
+		Category 1: 5
+		Category 2: 5
+		Category 3: 5
+		Category 4: 4
+
+2. Simon and I both discussed the prep work and were able to help each other out 
+   when we were confused. Simon helped me with the state diagram and I helped him
+   with the timer module. We both worked on testbenches (separately at first), and 
+   then at the end we collaborated and filled in gaps for each of us.
+
+3. We met 4 times this week in person, and we messaged each other semi-frequenty.
+
+4. I contributed to the prep and testbench phases. See 2 for more details.
+
+5. See 2 for more details.
+
+6. Mine. I created my own testbench.
