@@ -1,0 +1,21 @@
+
+Question 1)
+	
+	data_ready must be asserted for 2 clk cycles
+
+	Data must be valid for 2 clk cycles. 1 from idle->store, and 1 from store->zero because until we get to zero we dont know for sure if the value was stored or went to eidle
+
+Question 2) 
+	
+	The filtered images show only certain frequencies of the original image. This makes sense because it is filtering out the high freq values being a HPF. The different images are changing based on the coefficients.
+
+
+
+Question 3)
+	
+	$fopen(filename, mode);
+	$fscanf(file, file_format_specifier, data_source)
+
+Question 4)
+
+	%b, %c, %d, %e, %f, %g, %h, %l, %m, %o, %s, %t, %u, %v, %z	

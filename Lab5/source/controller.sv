@@ -55,12 +55,12 @@ begin : NXT_LOGIC
 	case(state)
 		IDLE:
 		begin
-			if(dr == 0)
-				next_state = IDLE;
-			else if(lc == 1)
+			if(lc == 1'b1)
 				next_state = LOAD1;
-			else
+			else if(dr == 1'b1)
 				next_state = STORE;
+			else
+				next_state = IDLE;
 		end
 		STORE:
 		begin
@@ -140,7 +140,10 @@ begin : NXT_LOGIC
 		end
 		MODWAIT1:
 		begin
-			next_state = LOAD2;
+			if (lc == 1'b1)
+				next_state = LOAD2;
+			else
+				next_state = MODWAIT1;
 		end
 		LOAD2:
 		begin
@@ -148,7 +151,10 @@ begin : NXT_LOGIC
 		end
 		MODWAIT2:
 		begin
-			next_state = LOAD3;
+			if (lc == 1'b1)
+				next_state = LOAD3;
+			else
+				next_state = MODWAIT2;
 		end
 		LOAD3:
 		begin
@@ -156,7 +162,10 @@ begin : NXT_LOGIC
 		end
 		MODWAIT3:
 		begin
-			next_state = LOAD4;
+			if(lc == 1'b1)
+				next_state = LOAD4;
+			else
+				next_state = MODWAIT3;
 		end
 		LOAD4:
 		begin
@@ -164,12 +173,12 @@ begin : NXT_LOGIC
 		end
 		EIDLE:
 		begin
-			if(dr == 0)
-				next_state = EIDLE;
-			else if(lc == 1)
+			if(lc == 1'b1)
 				next_state = LOAD1;
+			else if(dr == 1'b1)
+				next_state = STORE;
 			else
-				next_state = IDLE;
+				next_state = EIDLE;
 		end
 	endcase
 end
@@ -178,7 +187,7 @@ always_comb
 begin	
 	cnt_up = 0;
 	clear = 0;
-	op = NOP;
+	oper = NOP;
 	next_modwait = 1;
 	src1 = 0;
 	src2 = 0;
@@ -191,118 +200,118 @@ begin
 	end
 	else if(state == STORE)
 	begin
-		op = LOADONE;
+		oper = LOADONE;
 		dest = 5;
 	end
 	else if(state == ZERO)
 	begin 
 		cnt_up = 1;
-		op = SUB;
+		oper = SUB;
 		src1 = 0;
 		src2 = 0;
 		dest = 0;
 	end
 	else if(state == SORT1)
 	begin
-		op = COPY;
+		oper = COPY;
 		src1 = 2;
-		src2 = 1;
+		dest = 1;
 	end
 	else if(state == SORT2)
 	begin
-		op = COPY;
+		oper = COPY;
 		src1 = 3;
-		src2 = 2;
+		dest = 2;
 	end
 	else if(state == SORT3)
 	begin
-		op = COPY;
+		oper = COPY;
 		src1 = 4;
-		src2 = 3;
+		dest = 3;
 	end
 	else if(state == SORT4)
 	begin
-		op = COPY;
+		oper = COPY;
 		src1 = 5;
-		src2 = 4;
+		dest = 4;
 	end
 	else if(state == MUL1)
 	begin
-		op = MUL;
-		src1 = 4;
+		oper = MUL;
+		src1 = 1;
 		src2 = 6;
 		dest = 10;
 	end
 	else if(state == SUB1)
 	begin
-		op = SUB;
+		oper = SUB;
 		src1 = 0;
 		src2 = 10;
 		dest = 0;
 	end
 	else if(state == MUL2)
 	begin
-		op = MUL;
-		src1 = 3;
+		oper = MUL;
+		src1 = 2;
 		src2 = 7;
 		dest = 10;
 	end
 	else if(state == ADD1)
 	begin
-		op = ADD;
+		oper = ADD;
 		src1 = 0;
 		src2 = 10;
 		dest = 0;
 	end
 	else if(state == MUL3)
 	begin
-		op = MUL;
-		src1 = 2;
+		oper = MUL;
+		src1 = 3;
 		src2 = 8;
 		dest = 10;
 	end
 	else if(state == SUB2)
 	begin
-		op = SUB;
+		oper = SUB;
 		src1 = 0;
 		src2 = 10;
 		dest = 0;
 	end
 	else if(state == MUL4)
 	begin
-		op = MUL;
+		oper = MUL;
 		src1 = 4;
 		src2 = 9;
 		dest = 10;
 	end
 	else if(state == ADD2)
 	begin
-		op = ADD;
+		oper = ADD;
 		src1 = 0;
 		src2 = 10;
 		dest = 0;
 	end
 	else if(state == LOAD1)
 	begin
-		op = LOADTWO;
+		oper = LOADTWO;
 		dest = 6;
 		clear = 1;
 	end
 	else if(state == LOAD2)
 	begin
-		op = LOADTWO;
+		oper = LOADTWO;
 		dest = 7;
 		clear = 1;
 	end
 	else if(state == LOAD3)
 	begin
-		op = LOADTWO;
+		oper = LOADTWO;
 		dest = 8;
 		clear = 1;
 	end
 	else if(state == LOAD4)
 	begin
-		op = LOADTWO;
+		oper = LOADTWO;
 		dest = 9;
 		clear = 1;
 	end
@@ -324,4 +333,5 @@ begin
 		next_modwait = 0;
 	end
 end
+assign op = oper;
 endmodule

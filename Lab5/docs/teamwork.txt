@@ -1,0 +1,40 @@
+1. 
+	Parth (Me): 
+		Category 1: 5
+		Category 2: 5
+		Category 3: 5
+		Category 4: 5
+
+	Simon: 
+		Category 1: 5
+		Category 2: 5
+		Category 3: 5
+		Category 4: 5
+	
+	Caleb:
+		Category 1: 5
+		Category 2: 5
+		Category 3: 5
+		Category 4: 5
+	
+
+2. Simon, Caleb, and I worked on the state diagram together. I primarily worked on the RTL diagrams
+   for the magnitude block, and the controller block. Caleb primarily worked on the pseudocode, and 
+   Simon worked primarily on the state diagrams.
+  
+   We also had very productive debugging discussions. Also after talking to the TA, we found out that 
+   doing the coefficient addition/subtraction in the order of add,sub,add,sub is better, and prevents
+   overflow from occuring. However, we were not told this until after we had already individually had 
+   programmed up the FSM, and after talking to the TA found out that we were able to keep our original 
+   logic and simply switch the ordering.
+
+   We thoroughly discussed the design phase in order to make the coding go smoothly. We agreed upon a 
+   common general design, so we were better able to help each other out.
+
+3. We met 3 times this week in person, and we messaged each other semi-frequenty.
+
+4. I contributed to the preparation phase, and debugging discussions, as well as the design discussions.
+
+5. See 2 for more details.
+
+6. Mine, along with testing the image file io
