@@ -86,6 +86,7 @@ module tb_i2c_slave
 
 		//stop condition found
 		@(posedge tb_scl)
+		@(posedge tb_scl)
 		#(CLK_PERIOD / 2)
 		tb_sda_in = 0;
 		#1

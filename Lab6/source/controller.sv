@@ -143,7 +143,6 @@ begin
 	else if(state == LOAD)
 	begin
 		load_data = 1;
-		sda_mode = 2'b11;
 	end
 	else if(state == SEND_BYTE)
 	begin
