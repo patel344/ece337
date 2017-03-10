@@ -1,0 +1,4 @@
+INCLUDE /home/ecegrid/a/mg71/cds.lib
+#Removed by ddDeleteObj: DEFINE My_Layout ~/ece337/My_Layout
+DEFINE NCSU_TechLib_ami06 /package/eda/cells/ncsu-cdk-1.5.1/local/lib/NCSU_TechLib_ami06
+DEFINE My_Layout ~/ece337//My_Layout
